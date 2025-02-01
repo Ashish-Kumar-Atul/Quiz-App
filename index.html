@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List by Ashish</title>
+    <link rel="stylesheet" href="output.css">
+    <link rel="icon" href="Images/Quiz logo.webp" type="image/png">
+</head>
+<body class=" bg-slate-800 text-white h-screen flex items-center justify-center">
+    <main>
+        <div class="border-2 rounded-2xl text-center w-[60vh] ">
+            <div class="mt-2 underline  flex items-center justify-center font-serif  text-5xl font-bold">    <!-- Quizzes Div -->
+                Quiz
+            </div>   
+
+            <div id="quesContainer" class=" mt-4">     <!-- Question and Options -->
+                <h2 id="questions" class="text-2xl"></h2>
+                <ul id="options" class="pl-5 mt-4 text-xl text-left">
+                    
+                </ul>
+            </div>    
+
+            <div id="scorediv" class=" mt-4 hidden">      <!-- Score Div -->
+                <div>   <!-- X out of Y -->
+                    <h2>Your Score</h2>
+                </div>
+            </div>
+
+            <div class=" my-4 ">      <!-- Score Div -->
+                <button id="start" type="start" class=" border-2 border-red-800 bg-orange-500 px-4 rounded-xl shadow-[0_0_5px_2px_rgba(255,0,0,0.5)] focus:shadow-[0_0_5px_2px_rgba(0,128,0,0.7)] py-1">Start</button>
+                <button id="next" type="next" class="hidden border-2 border-red-800 px-4 rounded-xl shadow-[0_0_5px_2px_rgba(255,0,0,0.5)] bg-blue-700 focus:shadow-[0_0_5px_2px_rgba(0,128,0,0.7)] py-1">Next</button>
+                <button id="submit" type="submit" class="hidden border-2 border-red-800 bg-red-700 px-4 rounded-xl shadow-[0_0_5px_2px_rgba(255,0,0,0.5)] focus:shadow-[0_0_5px_2px_rgba(0,128,0,0.7)] py-1">Submit</button>
+            </div>
+        </div>
+    </main>
+    <script src="script.js" defer></script>
+</body>
+</html>
