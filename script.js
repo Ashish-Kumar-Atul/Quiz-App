@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded',()=>{
-
+document.addEventListener('DOMContentLoaded', () => {
     const startbtn = document.getElementById('start');
     const nextbtn = document.getElementById('next');
     const submitbtn = document.getElementById('submit');
+    const restartbtn = document.getElementById('restart');
     const quescontainer = document.getElementById('quesContainer');
-    const showquestions = document.getElementById('questions');
-    const options = document.getElementById('options');
-    
-    const questions = [
+    let showquestions = document.getElementById('questions');
+    let options = document.getElementById('options');
+
+    const questionsarr = [
         {
             question: "What is the capital of France?",
             choices: ["Paris", "London", "Berlin", "Madrid"],
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             question: "What is the chemical symbol for gold?",
             choices: ["Au", "Ag", "Pb", "Fe"],
             answer: "Au",
-        },
+        }                     //Add a comma while uncommenting rest code
         // {
         //     question: "Which country is known as the Land of the Rising Sun?",
         //     choices: ["China", "Japan", "Thailand", "South Korea"],
@@ -63,9 +63,77 @@ document.addEventListener('DOMContentLoaded',()=>{
     let currentQuestion = 0;
     let score = 0;
 
-    startbtn.addEventListener('click',() => {
+    startbtn.addEventListener('click', startQuiz);
+    nextbtn.addEventListener('click', nextQuestion);
+    submitbtn.addEventListener('click', showScore);
+    restartbtn.addEventListener('click', restartQuiz);
+
+    function startQuiz() {
         startbtn.classList.add('hidden');
         nextbtn.classList.remove('hidden');
+        showQuestions();
+    }
 
-    })
-})
+    function showQuestions() {
+        if (currentQuestion < questionsarr.length) {
+            showquestions.textContent = questionsarr[currentQuestion].question;
+            options.innerHTML = '';
+
+            questionsarr[currentQuestion].choices.forEach(choice => {
+                const li = document.createElement('li');
+                li.innerHTML = `<label><input type="radio" name="option" value="${choice}" class="mr-2"> ${choice}</label>`;
+                options.appendChild(li);
+            });
+        } else {
+            showScore();
+        }
+    }
+
+    function nextQuestion() {
+        const selectedOption = document.querySelector('input[name="option"]:checked');
+        if (!selectedOption) {
+            alert("Please select an answer!");
+            return;
+        }
+
+        if (selectedOption.value === questionsarr[currentQuestion].answer) {
+            score++;
+        }
+
+        currentQuestion++;
+
+        if (currentQuestion === questionsarr.length - 1) {
+            nextbtn.classList.add('hidden');
+            submitbtn.classList.remove('hidden');
+        }
+
+        showQuestions();
+    }
+
+    function showScore() {
+        quescontainer.innerHTML = `<h2 class="text-2xl font-bold">Your Score: ${score} / ${questionsarr.length}</h2>`;
+        submitbtn.classList.add('hidden');
+        nextbtn.classList.add('hidden');
+        restartbtn.classList.remove('hidden');
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        score = 0;
+    
+        restartbtn.classList.add('hidden');
+        submitbtn.classList.add('hidden');
+        nextbtn.classList.remove('hidden');
+    
+        quescontainer.innerHTML = `
+            <h2 id="questions" class="text-2xl"></h2>
+            <ul id="options" class="pl-5 mt-4 text-xl text-left"></ul>
+        `;
+    
+        showquestions = document.getElementById('questions');
+        options = document.getElementById('options');
+    
+        showQuestions();
+    }
+    
+});
